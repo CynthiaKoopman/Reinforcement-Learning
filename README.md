@@ -4,7 +4,7 @@ For now using Pytorch and Cartpole environment from gym (OpenAI)
 
 Included:
 * Vanilla Policy Gradient (REINFORCE)
-* simple Actor-Critic
+* Simple Actor-Critic
 
 Working on:
 * PPO with GAE
