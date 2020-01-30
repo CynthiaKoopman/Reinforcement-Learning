@@ -7,4 +7,4 @@ Included:
 
 Working on:
 * PPO with GAE
-* A2C: Actor-Critic (with multiple agents working synchonous)
+* A2C: Actor-Critic (with multiple agents working synchronous)
