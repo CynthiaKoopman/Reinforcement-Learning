@@ -1,6 +1,6 @@
 # Reinforcement Learning
 Easy Implementation of selected Reinforcement Learning Algorithms
-for now using Pytorch and Cartpole environment from gym (OpenAI)
+for using Pytorch and for now only Cartpole environment from OpenAI gym. Every experiment includes the code (.py) and an execution example ().
 
 Included:
 * Vanilla Policy Gradient (REINFORCE)
