@@ -9,3 +9,7 @@ Included:
 
 Working on:
 * PPO with GAE
+* RL in continuous environment
+* RL with a sparse reward function
+* Custom environment
+* Simple Multi-Agent
