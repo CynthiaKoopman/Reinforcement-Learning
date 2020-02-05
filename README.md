@@ -4,8 +4,8 @@ for using Pytorch and for now only Cartpole environment from OpenAI gym. Every e
 
 Included:
 * Vanilla Policy Gradient (REINFORCE)
-* Simple Actor-Critic
+* Simple Actor-Critic with shared weights
+* Actor-Critic without shared weights & GAE
 
 Working on:
 * PPO with GAE
-* A2C: Actor-Critic (with multiple agents working synchronous)
