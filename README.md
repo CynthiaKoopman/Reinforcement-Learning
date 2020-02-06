@@ -10,6 +10,7 @@ Included:
 
 Working on:
 * RNN with RL
+* Parallelized versions
 * RL in continuous environment
 * RL with a sparse reward function
 * Custom environment
