@@ -6,9 +6,9 @@ Included:
 * Simple Actor-Critic with shared weights
 * Actor-Critic without shared weights & GAE
 * PPO without shared weights & GAE & early stopping with KL
+* PPO without shared weights & GAE & mini batches
 
 Working on:
-* PPO with mini batches
 * RL in continuous environment
 * RL with a sparse reward function
 * Custom environment
