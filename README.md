@@ -9,6 +9,7 @@ Included:
 * PPO without shared weights & GAE & mini batches
 
 Working on:
+* RNN with RL
 * RL in continuous environment
 * RL with a sparse reward function
 * Custom environment
