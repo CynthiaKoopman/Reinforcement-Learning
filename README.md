@@ -11,8 +11,10 @@ Included:
 Working on:
 * DDPG
 * RNN with RL
-* Parallelized versions
-* RL in continuous environment
+* Parallelized version
+* RL in continuous control environment
 * RL with a sparse reward function --> implementing exploration curriculum
 * Custom environment
 * Simple Multi-Agent
+* Multi-Agent with opponent sampling
+* Multi-Agent with ensemble component
