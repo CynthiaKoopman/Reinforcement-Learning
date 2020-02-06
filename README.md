@@ -9,6 +9,7 @@ Included:
 * PPO without shared weights & GAE & mini batches
 
 Working on:
+* DDPG
 * RNN with RL
 * Parallelized versions
 * RL in continuous environment
