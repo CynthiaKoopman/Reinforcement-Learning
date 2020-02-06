@@ -13,6 +13,6 @@ Working on:
 * RNN with RL
 * Parallelized versions
 * RL in continuous environment
-* RL with a sparse reward function
+* RL with a sparse reward function --> implementing exploration curriculum
 * Custom environment
 * Simple Multi-Agent
