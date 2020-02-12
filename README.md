@@ -1,5 +1,5 @@
 # Reinforcement Learning - Basic
-Easy Implementation of selected Reinforcement Learning Algorithms using Pytorch on Cartpole and Lunar Lander environment from OpenAI gym. Every experiment includes the code (.py) and an execution example (.ipynb).
+Easy Implementation of selected Reinforcement Learning Algorithms using Pytorch on environments from OpenAI gym.
 
 Ready:
 * Vanilla Policy Gradient (REINFORCE)
@@ -8,9 +8,9 @@ Ready:
 * PPO without shared weights & GAE & early stopping with KL
 * PPO without shared weights & GAE & mini batches
 * PPO with continues action space on Lunar Lander environment
+* DDPG on the Pendulum environment
 
 Working on:
-* DDPG
 * RNN with RL
 * Parallelized version
 * RL with a sparse reward function
