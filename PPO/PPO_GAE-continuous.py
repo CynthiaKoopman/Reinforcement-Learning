@@ -6,10 +6,6 @@
 # This code makes use of a Memory to store various values, making GAE calculation easier. Weights are not shared between actor and critic. PPO is performed using several policy update iterations on the same batch, and early stopping using KL. Mini-batches are not used. 
 # 
 # Also please note that parameters have not been optimized fully.
-
-# In[1]:
-
-
 import numpy as np
 import scipy.signal
 from gym.spaces import Box, Discrete
@@ -20,10 +16,6 @@ from torch.distributions.normal import Normal
 from torch.distributions.categorical import Categorical
 from torch.optim import Adam
 import matplotlib.pyplot as plt
-
-
-# In[32]:
-
 
 #actor crtic module
 class MLPActorCritic(nn.Module):
@@ -52,10 +44,6 @@ class MLPActorCritic(nn.Module):
     def act(self, obs):
         return self.step(obs)[0]
 
-
-# In[33]:
-
-
 #critic
 class MLPCritic(nn.Module):
 
@@ -65,10 +53,6 @@ class MLPCritic(nn.Module):
 
     def forward(self, obs):
         return torch.squeeze(self.v_net(obs), -1) # Critical to ensure v has right shape.
-
-
-# In[35]:
-
 
 class MLPGaussianActor(nn.Module):
 
@@ -96,19 +80,12 @@ class MLPGaussianActor(nn.Module):
             logp_a = self._log_prob_from_distribution(pi, act)
         return pi, logp_a
 
-
-# In[36]:
-
-
 def mlp(sizes, activation, output_activation=nn.Identity):
     layers = []
     for j in range(len(sizes)-1):
         act = activation if j < len(sizes)-2 else output_activation
         layers += [nn.Linear(sizes[j], sizes[j+1]), act()]
     return nn.Sequential(*layers)
-
-
-# In[37]:
 
 
 def combined_shape(length, shape=None):
@@ -118,10 +95,6 @@ def combined_shape(length, shape=None):
 
 def discount_cumsum(x, discount):
     return scipy.signal.lfilter([1], [1, float(-discount)], x[::-1], axis=0)[::-1]
-
-
-# In[38]:
-
 
 class Memory:
     def __init__(self, obs_dim, act_dim, size, gamma, lambda_gae):
@@ -175,10 +148,6 @@ class Memory:
                     adv=self.adv_buf, logp=self.logp_buf)
         return {k: torch.as_tensor(v, dtype=torch.float32) for k,v in data.items()}
         
-
-
-# In[39]:
-
 
 def ppo(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99, 
         seed=0, steps_per_epoch=200, epochs=2, pi_lr=3e-4, vf_lr=1e-3, lambda_gae=0.97, 
@@ -312,9 +281,6 @@ def ppo(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99,
     return avg_rew, kls, ents
 
 
-# In[44]:
-
-
 result, kls, ents = ppo(lambda : gym.make("LunarLanderContinuous-v2"), actor_critic=MLPActorCritic, hidden_sizes=(400,200), gamma=0.99, 
              seed=0, steps_per_epoch=500, epochs=500, pi_lr=1e-4, vf_lr=1e-3, lambda_gae=0.97, 
              max_ep_len=200, activation=nn.ReLU, train_v_iters = 30, clip_ratio = 0.2, train_pi_iters = 40, target_kl = 0.01)
@@ -333,16 +299,3 @@ plt.plot(ents)
 plt.xlabel("epoch")
 plt.ylabel("entropy")
 plt.show()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
