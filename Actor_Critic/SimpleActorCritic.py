@@ -4,9 +4,6 @@
 # ## Implementation of a simple Actor-Critic algorithm
 # ### Using Cartpole environment provided by gym
 
-# In[1]:
-
-
 import sys
 import torch  
 import gym
@@ -17,9 +14,6 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import pandas as pd
-
-
-# In[24]:
 
 
 # neural network
@@ -47,9 +41,6 @@ class ActorCritic(nn.Module):
         policy_dist = F.softmax(self.actor_linear2(policy_dist), dim=1) # go through last layer, and turn into probabilities
 
         return value, policy_dist # return value (given state) & action prob_dist (given state)
-
-
-# In[33]:
 
 
 def take_steps(actor_critic, env, max_steps, entropy_term): 
@@ -87,18 +78,11 @@ def take_steps(actor_critic, env, max_steps, entropy_term):
     return states, rewards, logprobs, values, next_value, entropy_term
 
 
-# In[39]:
-
-
 def get_Qvals(Qvals, rewards, gamma, next_value):
     for t in reversed(range(len(rewards))):
         next_value = rewards[t] + gamma * next_value
         Qvals[t] = next_value
     return Qvals
-
-
-# In[49]:
-
 
 def test_net(actor_critic, env, count=10):
     rewards = 0.0
@@ -114,9 +98,6 @@ def test_net(actor_critic, env, count=10):
             if done:
                 break
     return rewards / count # return average reward of the episodes
-
-
-# In[58]:
 
 
 def a2c(env, hidden_size, learning_rate, gamma, max_steps, total_steps):
@@ -168,10 +149,6 @@ def a2c(env, hidden_size, learning_rate, gamma, max_steps, total_steps):
     
     return all_rewards, test_returns
 
-
-# In[60]:
-
-
 env = gym.make("CartPole-v0")
 env.seed(0)
 all_rewards, test_returns = a2c(env, hidden_size = 256, learning_rate = 3e-4, gamma = 0.99, max_steps = 200, total_steps = 1000)
@@ -189,10 +166,6 @@ plt.plot(test_returns)
 plt.ylabel("reward")
 plt.xlabel("steps")
 plt.show()
-
-
-# In[61]:
-
 
 env = gym.make("CartPole-v0")
 env.seed(0)
@@ -212,10 +185,6 @@ plt.ylabel("reward")
 plt.xlabel("steps")
 plt.show()
 
-
-# In[62]:
-
-
 env = gym.make("CartPole-v0")
 env.seed(0)
 all_rewards, test_returns = a2c(env, hidden_size = 256, learning_rate = 3e-4, gamma = 0.99, max_steps = 150, total_steps = 2000)
@@ -233,10 +202,3 @@ plt.plot(test_returns)
 plt.ylabel("reward")
 plt.xlabel("steps")
 plt.show()
-
-
-# In[ ]:
-
-
-
-
