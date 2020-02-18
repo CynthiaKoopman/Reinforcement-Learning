@@ -6,8 +6,6 @@
 # This code makes use of a Memory to store various values, this makes it easier to pass the values, but also for the GAE calculation. For actor-critic updates the episode does not have to end, and if working with env like cartpole, a batch can contain several episodes. This code also does not share weights between actor and critic contrary to the "simple" implementation found in this repository. 
 # 
 # Also please note that parameters have not been optimized. The parameters and environment are chosen for simplicity.
-# In[1]:
-
 
 import numpy as np
 import scipy.signal
@@ -19,9 +17,6 @@ from torch.distributions.categorical import Categorical
 import matplotlib.pyplot as plt
 
 
-# In[2]:
-
-
 class MLPActorCritic(nn.Module):
 
 
@@ -31,10 +26,7 @@ class MLPActorCritic(nn.Module):
 
         obs_dim = observation_space.shape[0]
 
-        # policy builder depends on action space
-        """if isinstance(action_space, Box):
-            self.pi = MLPGaussianActor(obs_dim, action_space.shape[0], hidden_sizes, activation)
-        elif isinstance(action_space, Discrete):"""
+        # policy 
         self.pi = MLPCategoricalActor(obs_dim, action_space.n, hidden_sizes, activation) #actor
 
         # build value function
@@ -74,17 +66,11 @@ class MLPCategoricalActor(nn.Module):
         return pi.log_prob(act)
     
     def forward(self, obs, act=None):
-        # Produce action distributions for given observations, and 
-        # optionally compute the log likelihood of given actions under
-        # those distributions.
         pi = self._distribution(obs)
         logp_a = None
         if act is not None:
             logp_a = self._log_prob_from_distribution(pi, act)
         return pi, logp_a
-
-
-# In[3]:
 
 
 def mlp(sizes, activation, output_activation=nn.Identity):
@@ -101,9 +87,6 @@ def combined_shape(length, shape=None):
 
 def discount_cumsum(x, discount):
     return scipy.signal.lfilter([1], [1, float(-discount)], x[::-1], axis=0)[::-1]
-
-
-# In[4]:
 
 
 class Memory:
@@ -157,10 +140,6 @@ class Memory:
                     adv=self.adv_buf)
         return {k: torch.as_tensor(v, dtype=torch.float32) for k,v in data.items()}
         
-
-
-# In[8]:
-
 
 def vpg(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99, 
         seed=0, steps_per_epoch=200, epochs=2, pi_lr=3e-4, vf_lr=1e-3, lambda_gae=0.97, 
@@ -271,9 +250,6 @@ def vpg(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99,
     return avg_rew
 
 
-# In[9]:
-
-
 result = vpg(lambda : gym.make("CartPole-v0"), actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99, 
              seed=0, steps_per_epoch=200, epochs=2000, pi_lr=3e-4, vf_lr=1e-3, lambda_gae=0.97, 
              max_ep_len=200, activation=nn.Tanh)
@@ -282,10 +258,4 @@ plt.plot(result)
 plt.xlabel("epoch")
 plt.ylabel("avg reward")
 plt.show()
-
-
-# In[ ]:
-
-
-
 
