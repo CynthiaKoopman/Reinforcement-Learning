@@ -4,19 +4,12 @@
 # ## Implementation of the Vanilla Policy Gradient (REINFORCE) 
 # ### using the Cartpole environment provided by gym
 
-# In[ ]:
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import gym
 import torch
 from torch import nn
 from torch import optim
-
-
-# In[12]:
-
 
 # create a policy network that input (obs) --> output (logits of actions, logits due to use of softmax function)
 
@@ -37,10 +30,6 @@ class policy_network():
     def predict(self, obs):
         action_probs = self.network(torch.FloatTensor(obs))
         return action_probs
-
-
-# In[13]:
-
 
 # create data loop --> save current obs 
 #                  --> run obs through policy network get logits of actions
@@ -101,10 +90,6 @@ def VPG_loss(policy_net, obs_tensor, reward_tensor, action_tensor):
     loss = -logprobs_b.mean()
     return loss
 
-
-# In[17]:
-
-
 def rl(env, policy_net, num_epochs, batch_size, gamma, loss_type, optimizer_type):
     avg_returns = []
     
@@ -141,28 +126,13 @@ def rl(env, policy_net, num_epochs, batch_size, gamma, loss_type, optimizer_type
     
     return avg_returns
 
-
-# In[22]:
-
-
 def main():
     env = gym.make('CartPole-v0')
     avg_returns = rl(env, policy_network(env), num_epochs=40, batch_size=20, 
                      gamma=0.99, loss_type = "VPG", optimizer_type = "Adam")
     return avg_returns
 
-
-# In[23]:
-
-
 plt.plot(main())
 plt.ylabel("average return")
 plt.xlabel("epoch")
 plt.show()
-
-
-# In[ ]:
-
-
-
-
