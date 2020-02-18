@@ -6,10 +6,6 @@
 # This code makes use of a Memory to store various values, making GAE calculation easier. Weights are not shared between actor and critic. PPO is performed using several policy updates on mini batches. 
 # 
 # Also please note that parameters have not been optimized. The parameters and environment are chosen for simplicity.
-
-# In[1]:
-
-
 import numpy as np
 import scipy.signal
 from gym.spaces import Box, Discrete
@@ -20,10 +16,6 @@ from torch.distributions.normal import Normal
 from torch.distributions.categorical import Categorical
 from torch.optim import Adam
 import matplotlib.pyplot as plt
-
-
-# In[2]:
-
 
 #actor crtic module
 class MLPActorCritic(nn.Module):
@@ -51,10 +43,6 @@ class MLPActorCritic(nn.Module):
     def act(self, obs):
         return self.step(obs)[0]
 
-
-# In[3]:
-
-
 #critic
 class MLPCritic(nn.Module):
 
@@ -64,10 +52,6 @@ class MLPCritic(nn.Module):
 
     def forward(self, obs):
         return torch.squeeze(self.v_net(obs), -1) # Critical to ensure v has right shape.
-
-
-# In[4]:
-
 
 #actor
 class MLPCategoricalActor(nn.Module):
@@ -84,18 +68,11 @@ class MLPCategoricalActor(nn.Module):
         return pi.log_prob(act)
     
     def forward(self, obs, act=None):
-        # Produce action distributions for given observations, and 
-        # optionally compute the log likelihood of given actions under
-        # those distributions.
         pi = self._distribution(obs)
         logp_a = None
         if act is not None:
             logp_a = self._log_prob_from_distribution(pi, act)
         return pi, logp_a
-
-
-# In[5]:
-
 
 def mlp(sizes, activation, output_activation=nn.Identity):
     layers = []
@@ -104,10 +81,6 @@ def mlp(sizes, activation, output_activation=nn.Identity):
         layers += [nn.Linear(sizes[j], sizes[j+1]), act()]
     return nn.Sequential(*layers)
 
-
-# In[6]:
-
-
 def combined_shape(length, shape=None):
     if shape is None:
         return (length,)
@@ -115,10 +88,6 @@ def combined_shape(length, shape=None):
 
 def discount_cumsum(x, discount):
     return scipy.signal.lfilter([1], [1, float(-discount)], x[::-1], axis=0)[::-1]
-
-
-# In[22]:
-
 
 class Memory:
     def __init__(self, obs_dim, act_dim, size, gamma, lambda_gae):
@@ -190,10 +159,6 @@ class Memory:
                      adv=self.adv_buf[idxs],
                      logp=self.logp_buf[idxs])
         return {k: torch.as_tensor(v, dtype=torch.float32) for k,v in batch.items()}
-
-
-# In[31]:
-
 
 def ppo(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99, 
         seed=0, steps_per_epoch=200, epochs=2, pi_lr=3e-4, vf_lr=1e-3, lambda_gae=0.97, 
@@ -328,10 +293,6 @@ def ppo(env_fn, actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99,
         ents.append(ent)
     return avg_rew, kls, ents
 
-
-# In[24]:
-
-
 result, kls, ents = ppo(lambda : gym.make("CartPole-v0"), actor_critic=MLPActorCritic, hidden_sizes=(64,64), gamma=0.99, 
              seed=0, steps_per_epoch=500, epochs=500, pi_lr=3e-4, vf_lr=1e-4, lambda_gae=0.97, 
              max_ep_len=200, activation=nn.Tanh, train_v_iters = 1, clip_ratio = 0.2, train_pi_iters = 1, 
@@ -351,10 +312,3 @@ plt.plot(ents)
 plt.xlabel("epoch")
 plt.ylabel("entropy")
 plt.show()
-
-
-# In[ ]:
-
-
-
-
