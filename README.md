@@ -12,6 +12,6 @@ Ready:
 
 Working on:
 * RNN with RL
-* Parallelized version
+* Parallelization
 * RL with a sparse reward function
 * Simple Multi-Agent
