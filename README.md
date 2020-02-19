@@ -2,7 +2,7 @@
 Easy Implementation of selected Reinforcement Learning Algorithms using Pytorch on environments from OpenAI gym.
 
 Ready:
-* Vanilla Policy Gradient (REINFORCE)
+* REINFORCE
 * Simple Actor-Critic with shared weights
 * Actor-Critic without shared weights & GAE
 * PPO without shared weights & GAE & early stopping with KL
