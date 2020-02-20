@@ -1,5 +1,5 @@
-# Reinforcement Learning - Basics
-Easy Implementation of selected Reinforcement Learning Algorithms using Pytorch on environments from OpenAI gym.
+# Reinforcement Learning
+Implementation of selected Reinforcement Learning Algorithms using Pytorch on environments from OpenAI gym.
 
 Ready:
 * REINFORCE
