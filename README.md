@@ -15,8 +15,5 @@ Helpful stuff:
 
 Working on:
 * RNN with RL
-* Parallelization
-* RL with a sparse reward function
-* Simple Multi-Agent
 
 ![](lunar_lander.gif)
