@@ -9,7 +9,7 @@ Algorithms:
 * PPO without shared weights & GAE & mini batches
 * PPO with continuous action space on Lunar Lander environment
 * DDPG on the Pendulum environment
-* new: PPO with continous action space & RNN & Multiprocessing 
+* new: PPO with continous action space & RNN & Multiprocessing (vectorized environment)
 
 Helpful stuff:
 * Demonstration of saving, loading and creating a video of Pytorch network (save_load_and_video.ipynb)
