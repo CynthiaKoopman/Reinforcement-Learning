@@ -13,6 +13,6 @@ Algorithms:
 
 Helpful stuff:
 * Demonstration of saving, loading and creating a video of Pytorch network (save_load_and_video.ipynb)
-* new: Creating, Saving and Loading Checkpoints for RL training loops
+* Creating, Saving and Loading Checkpoints for RL training loops
 
 ![](lunar_lander.gif)
